@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" translate="no">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google" content="notranslate">
   <title>Trusteeship • Discord 機器人與託管中心</title>
   <style>
     :root {
       --bg-dark: #07080b;
-      --surface-1: rgba(18, 20, 27, 0.74);
+      --surface-1: rgba(18, 20, 27, 0.78);
       --border-subtle: rgba(255, 255, 255, 0.08);
       --border-strong: rgba(255, 255, 255, 0.16);
       --accent-red: #ff3b4e;
@@ -85,7 +86,7 @@
       gap: 12px;
       padding: 12px 18px;
       margin-bottom: 24px;
-      background: rgba(15, 17, 23, 0.78);
+      background: rgba(15, 17, 23, 0.85);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border: 1px solid var(--border-subtle);
@@ -151,24 +152,13 @@
       border-color: transparent;
     }
 
-    .reveal {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     .hero {
-      background: linear-gradient(180deg, rgba(31, 35, 47, 0.86) 0%, var(--surface-1) 100%);
+      background: linear-gradient(180deg, rgba(31, 35, 47, 0.9) 0%, var(--surface-1) 100%);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border-subtle);
       border-radius: 26px;
-      padding: 52px 32px 44px;
+      padding: 48px 28px 40px;
       text-align: center;
       box-shadow:
         0 24px 60px rgba(0, 0, 0, 0.58),
@@ -200,7 +190,7 @@
       border-radius: 999px;
       font-size: 13px;
       font-weight: 600;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
     .status-dot {
@@ -219,9 +209,9 @@
 
     .avatar-wrap {
       position: relative;
-      width: 114px;
-      height: 114px;
-      margin: 0 auto 22px;
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 20px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -245,13 +235,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 48px;
+      font-size: 46px;
       border: 2px solid rgba(255, 255, 255, 0.15);
       box-shadow: 0 12px 32px var(--accent-glow);
     }
 
     h1 {
-      font-size: clamp(32px, 5vw, 40px);
+      font-size: clamp(30px, 5vw, 38px);
       font-weight: 850;
       letter-spacing: -0.5px;
       margin-bottom: 12px;
@@ -262,23 +252,23 @@
 
     .subtitle {
       color: var(--text-sub);
-      font-size: 16px;
-      line-height: 1.72;
-      max-width: 550px;
-      margin: 0 auto 34px;
+      font-size: 15.5px;
+      line-height: 1.7;
+      max-width: 540px;
+      margin: 0 auto 30px;
     }
 
     .btn-group {
       display: flex;
-      gap: 14px;
+      gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
     }
 
     .btn {
-      padding: 14px 26px;
+      padding: 14px 24px;
       border-radius: 12px;
-      font-size: 15.5px;
+      font-size: 15px;
       font-weight: 700;
       text-decoration: none;
       transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
@@ -302,13 +292,13 @@
     }
 
     .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.06);
       color: var(--text-main);
       border: 1px solid var(--border-strong);
     }
 
     .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.12);
       transform: translateY(-2px);
     }
 
@@ -326,19 +316,18 @@
       border: 1px solid var(--border-subtle);
       border-radius: 20px;
       padding: 24px;
-      transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+      transition: transform 0.24s ease, border-color 0.24s ease;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
     }
 
     .feature-card:hover {
       transform: translateY(-4px);
       border-color: rgba(255, 77, 90, 0.45);
-      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.42);
     }
 
     .feature-icon {
-      width: 46px;
-      height: 46px;
+      width: 44px;
+      height: 44px;
       border-radius: 13px;
       background: linear-gradient(135deg, rgba(255, 59, 78, 0.18), rgba(255, 122, 89, 0.08));
       border: 1px solid rgba(255, 59, 78, 0.28);
@@ -358,7 +347,7 @@
     .feature-card p {
       color: var(--text-sub);
       font-size: 14px;
-      line-height: 1.62;
+      line-height: 1.6;
     }
 
     .section-card {
@@ -367,7 +356,7 @@
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--border-subtle);
       border-radius: 20px;
-      padding: 28px;
+      padding: 26px;
       margin-bottom: 24px;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
     }
@@ -431,20 +420,14 @@
       align-items: center;
       gap: 14px;
       padding: 14px 16px;
-      background-color: rgba(8, 9, 13, 0.75);
+      background-color: rgba(8, 9, 13, 0.8);
       border-radius: 13px;
       border: 1px solid rgba(255, 255, 255, 0.06);
-      transition: border-color 0.2s ease, background-color 0.2s ease;
       flex-wrap: wrap;
     }
 
     .cmd-item.hidden {
       display: none;
-    }
-
-    .cmd-item:hover {
-      border-color: rgba(255, 255, 255, 0.16);
-      background-color: rgba(15, 17, 24, 0.92);
     }
 
     .cmd-left {
@@ -513,9 +496,8 @@
       text-align: right;
     }
 
-    /* 開發者資訊卡 */
     .dev-card {
-      background: linear-gradient(145deg, rgba(28, 31, 42, 0.85), rgba(11, 13, 18, 0.88));
+      background: linear-gradient(145deg, rgba(28, 31, 42, 0.88), rgba(11, 13, 18, 0.9));
       border-radius: 16px;
       border: 1px solid var(--border-subtle);
       padding: 20px;
@@ -628,12 +610,12 @@
     }
 
     .hosting-banner {
-      background: linear-gradient(125deg, rgba(88, 101, 242, 0.22), rgba(20, 23, 32, 0.9) 68%);
+      background: linear-gradient(125deg, rgba(88, 101, 242, 0.22), rgba(20, 23, 32, 0.92) 68%);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border: 1px solid rgba(88, 101, 242, 0.38);
       border-radius: 22px;
-      padding: 28px;
+      padding: 26px;
       margin-bottom: 24px;
       display: flex;
       align-items: center;
@@ -659,7 +641,7 @@
     .hosting-info p {
       color: var(--text-sub);
       font-size: 14px;
-      line-height: 1.62;
+      line-height: 1.6;
     }
 
     .btn-discord {
@@ -708,7 +690,7 @@
 
     @media (max-width: 600px) {
       .hero {
-        padding: 40px 20px 34px;
+        padding: 36px 20px 32px;
       }
       .cmd-desc {
         text-align: left;
@@ -729,7 +711,6 @@
   <div class="bg-grid"></div>
 
   <div class="container">
-    <!-- 頂部導覽列 -->
     <nav class="navbar" aria-label="主要導覽">
       <a href="#" class="brand">
         <span class="brand-icon">⚡</span>
@@ -743,8 +724,7 @@
       </div>
     </nav>
 
-    <!-- 主視覺 -->
-    <section class="hero reveal">
+    <section class="hero">
       <div class="status-badge">
         <span class="status-dot"></span> 系統穩定運行中 • 24/7 在線
       </div>
@@ -765,8 +745,7 @@
       </div>
     </section>
 
-    <!-- 核心特色 -->
-    <section id="features" class="grid reveal">
+    <section id="features" class="grid">
       <div class="feature-card">
         <div class="feature-icon">🛡️</div>
         <h3>智慧安全防護</h3>
@@ -784,8 +763,7 @@
       </div>
     </section>
 
-    <!-- 指令中心 -->
-    <section id="commands" class="section-card reveal">
+    <section id="commands" class="section-card">
       <div class="section-header">
         <h2>📌 指令中心</h2>
         <span style="font-size:12.5px;color:var(--text-dim);">點擊指令旁的「複製」可快速複製</span>
@@ -799,4 +777,16 @@
 
       <div class="cmd-list">
         <div class="cmd-item" data-category="admin">
-   
+          <div class="cmd-left">
+            <span class="cmd-name">/setup_ticket</span>
+            <span class="cmd-tag tag-admin">管理員</span>
+            <button type="button" class="copy-btn" data-copy="/setup_ticket">複製</button>
+          </div>
+          <span class="cmd-desc">設定並發送工單系統面板（僅限管理員）</span>
+        </div>
+
+        <div class="cmd-item" data-category="dev">
+          <div class="cmd-left">
+            <span class="cmd-name">/setup_hosting_ticket</span>
+            <span class="cmd-tag tag-dev">開發者</span>
+            <button type="button" class="copy-btn" data-copy="/s
