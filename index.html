@@ -6,18 +6,22 @@
   <title>Trusteeship • Discord 機器人與託管中心</title>
   <style>
     :root {
-      --bg-dark: #090a0d;
-      --card-bg: rgba(22, 24, 31, 0.78);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --card-hover-border: rgba(255, 77, 90, 0.45);
+      --bg-dark: #07080b;
+      --surface-1: rgba(18, 20, 27, 0.74);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
       --accent-red: #ff3b4e;
-      --accent-red-2: #ff7a59;
-      --accent-glow: rgba(255, 59, 78, 0.35);
-      --discord-blurple: #5865F2;
-      --discord-blurple-hover: #6c77f7;
+      --accent-red-soft: rgba(255, 59, 78, 0.14);
+      --accent-coral: #ff7a59;
+      --accent-cyan: #67e8f9;
+      --accent-glow: rgba(255, 59, 78, 0.36);
+      --discord: #5865F2;
+      --discord-hover: #6d78f8;
       --text-main: #f9fafb;
-      --text-muted: #9ca3af;
+      --text-sub: #a1a8b8;
+      --text-dim: #6e7687;
       --success: #34d399;
+      --warning: #fbbf24;
     }
 
     * {
@@ -27,30 +31,31 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       background-color: var(--bg-dark);
       color: var(--text-main);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 48px 20px 64px;
+      padding: 24px 20px 72px;
       position: relative;
       overflow-x: hidden;
     }
 
-    .ambient-glow {
+    .bg-aurora {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
       background:
-        radial-gradient(circle at 50% -10%, rgba(255, 59, 78, 0.24), transparent 52%),
-        radial-gradient(circle at 15% 45%, rgba(88, 101, 242, 0.12), transparent 45%),
-        radial-gradient(circle at 88% 70%, rgba(255, 122, 89, 0.1), transparent 45%);
+        radial-gradient(ellipse 65% 45% at 50% -8%, rgba(255, 59, 78, 0.24), transparent 70%),
+        radial-gradient(circle at 12% 48%, rgba(88, 101, 242, 0.14), transparent 48%),
+        radial-gradient(circle at 86% 74%, rgba(103, 232, 249, 0.11), transparent 48%);
     }
 
-    .grid-pattern {
+    .bg-grid {
       position: fixed;
       inset: 0;
       pointer-events: none;
@@ -58,29 +63,130 @@
       background-image:
         linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-      background-size: 36px 36px;
-      mask-image: radial-gradient(circle at 50% 25%, black 25%, transparent 80%);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(circle at 50% 20%, rgba(0, 0, 0, 0.9) 20%, transparent 82%);
     }
 
     .container {
-      max-width: 760px;
+      max-width: 780px;
       width: 100%;
+      margin: 0 auto;
       position: relative;
       z-index: 1;
     }
 
-    .hero {
-      background: linear-gradient(180deg, rgba(30, 33, 43, 0.85) 0%, var(--card-bg) 100%);
+    .navbar {
+      position: sticky;
+      top: 16px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 18px;
+      margin-bottom: 24px;
+      background: rgba(15, 17, 23, 0.78);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.2px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .brand-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, var(--accent-red), var(--accent-coral));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      color: var(--text-sub);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 9px;
+      transition: all 0.18s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-cta {
+      background: var(--accent-red-soft);
+      color: #ff8c97;
+      border: 1px solid rgba(255, 59, 78, 0.3);
+    }
+
+    .nav-cta:hover {
+      background: var(--accent-red);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      background: linear-gradient(180deg, rgba(31, 35, 47, 0.86) 0%, var(--surface-1) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 26px;
       padding: 52px 32px 44px;
       text-align: center;
       box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.55),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        0 24px 60px rgba(0, 0, 0, 0.58),
+        inset 0 1px 0 rgba(255, 255, 255, 0.09);
       margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 65%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 92, 108, 0.75), transparent);
     }
 
     .status-badge {
@@ -90,11 +196,10 @@
       background: rgba(52, 211, 153, 0.1);
       color: var(--success);
       border: 1px solid rgba(52, 211, 153, 0.28);
-      padding: 6px 15px;
+      padding: 6px 16px;
       border-radius: 999px;
       font-size: 13px;
       font-weight: 600;
-      letter-spacing: 0.3px;
       margin-bottom: 24px;
     }
 
@@ -109,13 +214,13 @@
 
     @keyframes pulse {
       0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.35); opacity: 0.65; }
+      50% { transform: scale(1.35); opacity: 0.6; }
     }
 
     .avatar-wrap {
       position: relative;
-      width: 112px;
-      height: 112px;
+      width: 114px;
+      height: 114px;
       margin: 0 auto 22px;
       display: flex;
       align-items: center;
@@ -126,9 +231,9 @@
       position: absolute;
       inset: -4px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent-red), var(--accent-red-2), var(--discord-blurple));
-      opacity: 0.75;
-      filter: blur(2px);
+      background: conic-gradient(from 45deg, var(--accent-red), var(--accent-coral), var(--discord), var(--accent-red));
+      opacity: 0.85;
+      filter: blur(1.5px);
     }
 
     .avatar {
@@ -136,30 +241,30 @@
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      background: linear-gradient(145deg, #2a1218, #14151c);
+      background: radial-gradient(circle at 30% 25%, #34161e, #12141b 75%);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 48px;
-      border: 2px solid rgba(255, 255, 255, 0.14);
-      box-shadow: 0 10px 30px var(--accent-glow);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 12px 32px var(--accent-glow);
     }
 
     h1 {
-      font-size: clamp(30px, 5vw, 38px);
+      font-size: clamp(32px, 5vw, 40px);
       font-weight: 850;
-      letter-spacing: -0.4px;
+      letter-spacing: -0.5px;
       margin-bottom: 12px;
-      background: linear-gradient(90deg, #ffffff 15%, #ff9aa2 65%, #ffb4a2 100%);
+      background: linear-gradient(95deg, #ffffff 10%, #ff9ea7 58%, #ffc0ad 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .subtitle {
-      color: var(--text-muted);
+      color: var(--text-sub);
       font-size: 16px;
-      line-height: 1.7;
-      max-width: 540px;
+      line-height: 1.72;
+      max-width: 550px;
       margin: 0 auto 34px;
     }
 
@@ -187,24 +292,23 @@
     .btn-primary {
       background: linear-gradient(135deg, var(--accent-red), #d62839);
       color: #ffffff;
-      box-shadow: 0 8px 24px var(--accent-glow);
+      box-shadow: 0 10px 26px var(--accent-glow);
     }
 
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(255, 59, 78, 0.48);
+      box-shadow: 0 14px 32px rgba(255, 59, 78, 0.5);
       filter: brightness(1.06);
     }
 
     .btn-secondary {
       background: rgba(255, 255, 255, 0.05);
       color: var(--text-main);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--border-strong);
     }
 
     .btn-secondary:hover {
       background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.24);
       transform: translateY(-2px);
     }
 
@@ -216,28 +320,28 @@
     }
 
     .feature-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
+      background: var(--surface-1);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
       padding: 24px;
-      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+      transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
     }
 
     .feature-card:hover {
       transform: translateY(-4px);
-      border-color: var(--card-hover-border);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 59, 78, 0.15);
+      border-color: rgba(255, 77, 90, 0.45);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.42);
     }
 
     .feature-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: rgba(255, 59, 78, 0.12);
-      border: 1px solid rgba(255, 59, 78, 0.25);
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, rgba(255, 59, 78, 0.18), rgba(255, 122, 89, 0.08));
+      border: 1px solid rgba(255, 59, 78, 0.28);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -252,17 +356,17 @@
     }
 
     .feature-card p {
-      color: var(--text-muted);
+      color: var(--text-sub);
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.62;
     }
 
     .section-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
+      background: var(--surface-1);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
       padding: 28px;
       margin-bottom: 24px;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -279,15 +383,40 @@
 
     .section-header h2 {
       font-size: 18px;
-      font-weight: 700;
+      font-weight: 750;
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .section-hint {
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-sub);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 13px;
+      border-radius: 999px;
       font-size: 12.5px;
-      color: var(--text-muted);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .filter-btn:hover {
+      color: var(--text-main);
+      border-color: var(--border-strong);
+    }
+
+    .filter-btn.active {
+      background: var(--accent-red-soft);
+      color: #ff949f;
+      border-color: rgba(255, 59, 78, 0.42);
     }
 
     .cmd-list {
@@ -301,17 +430,21 @@
       justify-content: space-between;
       align-items: center;
       gap: 14px;
-      padding: 13px 16px;
-      background-color: rgba(9, 10, 14, 0.72);
-      border-radius: 12px;
+      padding: 14px 16px;
+      background-color: rgba(8, 9, 13, 0.75);
+      border-radius: 13px;
       border: 1px solid rgba(255, 255, 255, 0.06);
       transition: border-color 0.2s ease, background-color 0.2s ease;
       flex-wrap: wrap;
     }
 
+    .cmd-item.hidden {
+      display: none;
+    }
+
     .cmd-item:hover {
       border-color: rgba(255, 255, 255, 0.16);
-      background-color: rgba(16, 18, 25, 0.9);
+      background-color: rgba(15, 17, 24, 0.92);
     }
 
     .cmd-left {
@@ -323,22 +456,42 @@
 
     .cmd-name {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      color: #ff7582;
+      color: #ff7e8a;
       background: rgba(255, 59, 78, 0.12);
-      border: 1px solid rgba(255, 59, 78, 0.24);
+      border: 1px solid rgba(255, 59, 78, 0.25);
       padding: 4px 10px;
       border-radius: 8px;
       font-weight: 700;
       font-size: 14px;
     }
 
+    .cmd-tag {
+      font-size: 11.5px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .tag-admin {
+      background: rgba(251, 191, 36, 0.12);
+      color: var(--warning);
+      border: 1px solid rgba(251, 191, 36, 0.25);
+    }
+
+    .tag-dev {
+      background: rgba(88, 101, 242, 0.16);
+      color: #9ba4ff;
+      border: 1px solid rgba(88, 101, 242, 0.32);
+    }
+
     .copy-btn {
       background: rgba(255, 255, 255, 0.06);
-      color: var(--text-muted);
+      color: var(--text-sub);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 7px;
-      padding: 4px 9px;
+      border-radius: 8px;
+      padding: 5px 10px;
       font-size: 12px;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.15s ease;
     }
@@ -355,41 +508,69 @@
     }
 
     .cmd-desc {
-      color: var(--text-muted);
+      color: var(--text-sub);
       font-size: 13.5px;
       text-align: right;
     }
 
-    /* 開發者資訊區塊 */
-    .dev-profile {
+    /* 開發者資訊卡 */
+    .dev-card {
+      background: linear-gradient(145deg, rgba(28, 31, 42, 0.85), rgba(11, 13, 18, 0.88));
+      border-radius: 16px;
+      border: 1px solid var(--border-subtle);
+      padding: 20px;
+    }
+
+    .dev-top {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
-      gap: 18px;
-      padding: 18px;
-      background-color: rgba(9, 10, 14, 0.72);
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.07);
+      gap: 16px;
       flex-wrap: wrap;
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     }
 
     .dev-main {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
     }
 
-    .dev-badge-avatar {
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(255, 59, 78, 0.24), rgba(88, 101, 242, 0.24));
-      border: 1px solid rgba(255, 255, 255, 0.14);
+    .dev-avatar-frame {
+      position: relative;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      padding: 2px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--discord));
+      box-shadow: 0 0 22px rgba(103, 232, 249, 0.32);
+      flex-shrink: 0;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
-      flex-shrink: 0;
+    }
+
+    .dev-avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      background: #141720;
+    }
+
+    .dev-avatar-fallback {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #141720;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
     }
 
     .dev-name-row {
@@ -401,54 +582,65 @@
     }
 
     .dev-name {
-      font-size: 17px;
-      font-weight: 700;
+      font-size: 18px;
+      font-weight: 800;
     }
 
-    .dev-role-tag {
+    .dev-pill {
       font-size: 12px;
       font-weight: 600;
-      color: #ff9aa2;
-      background: rgba(255, 59, 78, 0.14);
-      border: 1px solid rgba(255, 59, 78, 0.28);
-      padding: 2px 9px;
+      color: #67e8f9;
+      background: rgba(103, 232, 249, 0.12);
+      border: 1px solid rgba(103, 232, 249, 0.3);
+      padding: 2px 10px;
       border-radius: 999px;
     }
 
     .dev-handle {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 6px;
+      color: var(--text-sub);
     }
 
-    .dev-status {
+    .dev-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .dev-meta-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+
+    .dev-meta-label {
+      font-size: 11.5px;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .dev-meta-value {
       font-size: 13.5px;
-      color: #d1d5db;
-      line-height: 1.5;
-    }
-
-    .dev-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
+      color: var(--text-main);
+      font-weight: 600;
     }
 
     .hosting-banner {
-      background: linear-gradient(125deg, rgba(88, 101, 242, 0.2), rgba(22, 24, 31, 0.88) 65%);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(88, 101, 242, 0.35);
-      border-radius: 20px;
-      padding: 26px 28px;
+      background: linear-gradient(125deg, rgba(88, 101, 242, 0.22), rgba(20, 23, 32, 0.9) 68%);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(88, 101, 242, 0.38);
+      border-radius: 22px;
+      padding: 28px;
       margin-bottom: 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
       flex-wrap: wrap;
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.38);
     }
 
     .hosting-info {
@@ -457,7 +649,7 @@
 
     .hosting-info h2 {
       font-size: 18px;
-      font-weight: 700;
+      font-weight: 750;
       margin-bottom: 6px;
       display: flex;
       align-items: center;
@@ -465,33 +657,56 @@
     }
 
     .hosting-info p {
-      color: var(--text-muted);
+      color: var(--text-sub);
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.62;
     }
 
     .btn-discord {
-      background: linear-gradient(135deg, var(--discord-blurple), #4752C4);
+      background: linear-gradient(135deg, var(--discord), #4752C4);
       color: #ffffff;
-      box-shadow: 0 8px 22px rgba(88, 101, 242, 0.35);
+      box-shadow: 0 8px 24px rgba(88, 101, 242, 0.38);
       white-space: nowrap;
     }
 
     .btn-discord:hover {
-      background: linear-gradient(135deg, var(--discord-blurple-hover), #5865F2);
+      background: linear-gradient(135deg, var(--discord-hover), #5865F2);
       transform: translateY(-2px);
-      box-shadow: 0 12px 26px rgba(88, 101, 242, 0.48);
+      box-shadow: 0 12px 28px rgba(88, 101, 242, 0.5);
     }
 
     footer {
       text-align: center;
-      color: var(--text-muted);
+      color: var(--text-dim);
       font-size: 13px;
       margin-top: 8px;
-      opacity: 0.85;
     }
 
-    @media (max-width: 580px) {
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 40;
+      background: rgba(20, 23, 31, 0.94);
+      color: var(--text-main);
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      padding: 11px 16px;
+      border-radius: 12px;
+      font-size: 13.5px;
+      font-weight: 600;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: all 0.22s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 600px) {
       .hero {
         padding: 40px 20px 34px;
       }
@@ -499,23 +714,37 @@
         text-align: left;
         width: 100%;
       }
-      .btn {
+      .btn-group .btn {
         width: 100%;
         justify-content: center;
       }
-      .dev-actions {
-        width: 100%;
+      .nav-links {
+        display: none;
       }
     }
   </style>
 </head>
 <body>
-  <div class="ambient-glow"></div>
-  <div class="grid-pattern"></div>
+  <div class="bg-aurora"></div>
+  <div class="bg-grid"></div>
 
   <div class="container">
+    <!-- 頂部導覽列 -->
+    <nav class="navbar" aria-label="主要導覽">
+      <a href="#" class="brand">
+        <span class="brand-icon">⚡</span>
+        <span>Trusteeship</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features" class="nav-link">核心特色</a>
+        <a href="#commands" class="nav-link">指令中心</a>
+        <a href="#developer" class="nav-link">開發者</a>
+        <a href="#hosting" class="nav-link nav-cta">託管社群</a>
+      </div>
+    </nav>
+
     <!-- 主視覺 -->
-    <section class="hero">
+    <section class="hero reveal">
       <div class="status-badge">
         <span class="status-dot"></span> 系統穩定運行中 • 24/7 在線
       </div>
@@ -536,8 +765,8 @@
       </div>
     </section>
 
-    <!-- 功能特色 -->
-    <section class="grid">
+    <!-- 核心特色 -->
+    <section id="features" class="grid reveal">
       <div class="feature-card">
         <div class="feature-icon">🛡️</div>
         <h3>智慧安全防護</h3>
@@ -555,111 +784,19 @@
       </div>
     </section>
 
-    <!-- 常用指令 -->
-    <section class="section-card">
+    <!-- 指令中心 -->
+    <section id="commands" class="section-card reveal">
       <div class="section-header">
-        <h2>📌 常用指令一覽</h2>
-        <span class="section-hint">點擊「複製」即可快速複製指令</span>
+        <h2>📌 指令中心</h2>
+        <span style="font-size:12.5px;color:var(--text-dim);">點擊指令旁的「複製」可快速複製</span>
+      </div>
+
+      <div class="filter-tabs" role="tablist" aria-label="指令分類">
+        <button type="button" class="filter-btn active" data-filter="all">全部指令 (4)</button>
+        <button type="button" class="filter-btn" data-filter="admin">工單與管理 (1)</button>
+        <button type="button" class="filter-btn" data-filter="dev">開發者託管 (3)</button>
       </div>
 
       <div class="cmd-list">
-        <div class="cmd-item">
-          <div class="cmd-left">
-            <span class="cmd-name">/setup_ticket</span>
-            <button type="button" class="copy-btn" data-copy="/setup_ticket">複製</button>
-          </div>
-          <span class="cmd-desc">設定並發送工單系統面板（僅限管理員）</span>
-        </div>
-
-        <div class="cmd-item">
-          <div class="cmd-left">
-            <span class="cmd-name">/setup_hosting_ticket</span>
-            <button type="button" class="copy-btn" data-copy="/setup_hosting_ticket">複製</button>
-          </div>
-          <span class="cmd-desc">【開發者專屬】設定參數並發送免費託管工單面板</span>
-        </div>
-
-        <div class="cmd-item">
-          <div class="cmd-left">
-            <span class="cmd-name">/setup_free_hosting</span>
-            <button type="button" class="copy-btn" data-copy="/setup_free_hosting">複製</button>
-          </div>
-          <span class="cmd-desc">【開發者專屬】清空舊頻道與類別後部署免費託管架構</span>
-        </div>
-
-        <div class="cmd-item">
-          <div class="cmd-left">
-            <span class="cmd-name">/config_ticket</span>
-            <button type="button" class="copy-btn" data-copy="/config_ticket">複製</button>
-          </div>
-          <span class="cmd-desc">【開發者專屬】隨時修改工單系統相關參數</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- 開發者資訊 -->
-    <section class="section-card">
-      <div class="section-header">
-        <h2>👨‍💻 開發者資訊</h2>
-        <span class="section-hint">機器人維護與託管支援負責人</span>
-      </div>
-
-      <div class="dev-profile">
-        <div class="dev-main">
-          <div class="dev-badge-avatar">🐱</div>
-          <div>
-            <div class="dev-name-row">
-              <span class="dev-name">星空貓貓</span>
-              <span class="dev-role-tag">開發者</span>
-            </div>
-            <div class="dev-handle">Discord: starrysky_cat_2026</div>
-            <p class="dev-status">📌 處理機器人事務 • 簡介：喵~</p>
-          </div>
-        </div>
-
-        <div class="dev-actions">
-          <button type="button" class="copy-btn" data-copy="starrysky_cat_2026">複製帳號</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- 託管與支援伺服器 -->
-    <section class="hosting-banner">
-      <div class="hosting-info">
-        <h2>🚀 技術支援 &amp; DC Bot 託管服務</h2>
-        <p>需要機器人使用協助，或想尋找穩定低延遲的 Discord Bot 託管主機？歡迎加入官方社群與我們交流！</p>
-      </div>
-      <a href="https://discord.gg/nyBGFVxyMP" target="_blank" rel="noopener noreferrer" class="btn btn-discord">
-        💬 立即加入 Discord
-      </a>
-    </section>
-
-    <footer>
-      © 2026 Trusteeship • Developed by 星空貓貓
-    </footer>
-  </div>
-
-  <script>
-    document.querySelectorAll('.copy-btn').forEach((btn) => {
-      btn.addEventListener('click', async () => {
-        const text = btn.getAttribute('data-copy');
-        try {
-          await navigator.clipboard.writeText(text);
-          const originalText = btn.textContent;
-          btn.textContent = '已複製 ✓';
-          btn.classList.add('copied');
-          setTimeout(() => {
-            btn.textContent = originalText;
-            btn.classList.remove('copied');
-          }, 1500);
-        } catch (err) {
-          btn.textContent = '複製失敗';
-          setTimeout(() => {
-            btn.textContent = '複製';
-          }, 1500);
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+        <div class="cmd-item" data-category="admin">
+   
