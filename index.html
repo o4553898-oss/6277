@@ -39,7 +39,6 @@
       overflow-x: hidden;
     }
 
-    /* 背景光暈裝飾 */
     .ambient-glow {
       position: fixed;
       inset: 0;
@@ -70,7 +69,6 @@
       z-index: 1;
     }
 
-    /* 主視覺區 */
     .hero {
       background: linear-gradient(180deg, rgba(30, 33, 43, 0.85) 0%, var(--card-bg) 100%);
       backdrop-filter: blur(18px);
@@ -210,7 +208,6 @@
       transform: translateY(-2px);
     }
 
-    /* 功能特色網格 */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -260,8 +257,7 @@
       line-height: 1.6;
     }
 
-    /* 指令一覽區 */
-    .commands-box {
+    .section-card {
       background: var(--card-bg);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
@@ -364,7 +360,81 @@
       text-align: right;
     }
 
-    /* 託管與支援伺服器橫幅 */
+    /* 開發者資訊區塊 */
+    .dev-profile {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px;
+      background-color: rgba(9, 10, 14, 0.72);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      flex-wrap: wrap;
+    }
+
+    .dev-main {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .dev-badge-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255, 59, 78, 0.24), rgba(88, 101, 242, 0.24));
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .dev-name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+
+    .dev-name {
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .dev-role-tag {
+      font-size: 12px;
+      font-weight: 600;
+      color: #ff9aa2;
+      background: rgba(255, 59, 78, 0.14);
+      border: 1px solid rgba(255, 59, 78, 0.28);
+      padding: 2px 9px;
+      border-radius: 999px;
+    }
+
+    .dev-handle {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .dev-status {
+      font-size: 13.5px;
+      color: #d1d5db;
+      line-height: 1.5;
+    }
+
+    .dev-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
     .hosting-banner {
       background: linear-gradient(125deg, rgba(88, 101, 242, 0.2), rgba(22, 24, 31, 0.88) 65%);
       backdrop-filter: blur(16px);
@@ -433,6 +503,9 @@
         width: 100%;
         justify-content: center;
       }
+      .dev-actions {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -483,7 +556,7 @@
     </section>
 
     <!-- 常用指令 -->
-    <section class="commands-box">
+    <section class="section-card">
       <div class="section-header">
         <h2>📌 常用指令一覽</h2>
         <span class="section-hint">點擊「複製」即可快速複製指令</span>
@@ -493,7 +566,7 @@
         <div class="cmd-item">
           <div class="cmd-left">
             <span class="cmd-name">/setup_ticket</span>
-            <button type="button" class="copy-btn" data-cmd="/setup_ticket">複製</button>
+            <button type="button" class="copy-btn" data-copy="/setup_ticket">複製</button>
           </div>
           <span class="cmd-desc">設定並發送工單系統面板（僅限管理員）</span>
         </div>
@@ -501,7 +574,7 @@
         <div class="cmd-item">
           <div class="cmd-left">
             <span class="cmd-name">/setup_hosting_ticket</span>
-            <button type="button" class="copy-btn" data-cmd="/setup_hosting_ticket">複製</button>
+            <button type="button" class="copy-btn" data-copy="/setup_hosting_ticket">複製</button>
           </div>
           <span class="cmd-desc">【開發者專屬】設定參數並發送免費託管工單面板</span>
         </div>
@@ -509,7 +582,7 @@
         <div class="cmd-item">
           <div class="cmd-left">
             <span class="cmd-name">/setup_free_hosting</span>
-            <button type="button" class="copy-btn" data-cmd="/setup_free_hosting">複製</button>
+            <button type="button" class="copy-btn" data-copy="/setup_free_hosting">複製</button>
           </div>
           <span class="cmd-desc">【開發者專屬】清空舊頻道與類別後部署免費託管架構</span>
         </div>
@@ -517,9 +590,35 @@
         <div class="cmd-item">
           <div class="cmd-left">
             <span class="cmd-name">/config_ticket</span>
-            <button type="button" class="copy-btn" data-cmd="/config_ticket">複製</button>
+            <button type="button" class="copy-btn" data-copy="/config_ticket">複製</button>
           </div>
           <span class="cmd-desc">【開發者專屬】隨時修改工單系統相關參數</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 開發者資訊 -->
+    <section class="section-card">
+      <div class="section-header">
+        <h2>👨‍💻 開發者資訊</h2>
+        <span class="section-hint">機器人維護與託管支援負責人</span>
+      </div>
+
+      <div class="dev-profile">
+        <div class="dev-main">
+          <div class="dev-badge-avatar">🐱</div>
+          <div>
+            <div class="dev-name-row">
+              <span class="dev-name">星空貓貓</span>
+              <span class="dev-role-tag">開發者</span>
+            </div>
+            <div class="dev-handle">Discord: starrysky_cat_2026</div>
+            <p class="dev-status">📌 處理機器人事務 • 簡介：喵~</p>
+          </div>
+        </div>
+
+        <div class="dev-actions">
+          <button type="button" class="copy-btn" data-copy="starrysky_cat_2026">複製帳號</button>
         </div>
       </div>
     </section>
@@ -536,6 +635,31 @@
     </section>
 
     <footer>
-      © 2026 Trusteeship • Powered by DC Bot 託管社群
+      © 2026 Trusteeship • Developed by 星空貓貓
     </footer>
   </div>
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const text = btn.getAttribute('data-copy');
+        try {
+          await navigator.clipboard.writeText(text);
+          const originalText = btn.textContent;
+          btn.textContent = '已複製 ✓';
+          btn.classList.add('copied');
+          setTimeout(() => {
+            btn.textContent = originalText;
+            btn.classList.remove('copied');
+          }, 1500);
+        } catch (err) {
+          btn.textContent = '複製失敗';
+          setTimeout(() => {
+            btn.textContent = '複製';
+          }, 1500);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
